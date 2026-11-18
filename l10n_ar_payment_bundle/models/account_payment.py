@@ -178,6 +178,7 @@ class AccountPayment(models.Model):
             lambda x: x.state == "draft"
         )
         if draft_linked:
+            draft_linked._compute_l10n_ar_withholding_line_ids()  # limpia retenciones duplicadas de vinculados antes de postear
             draft_linked.action_post()
 
         # Envío diferido del recibo del main: acá los vinculados ya imputaron, así el
